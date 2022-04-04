@@ -22,6 +22,7 @@ if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) {
 <div class='footer'>
 Planning Biblio (<?php echo $GLOBALS['displayed_version']; ?>) -
 <a href='http://www.planningbiblio.fr' target='_blank' style='font-size:9pt;'>www.planningbiblio.fr</a>
+<script type='text/JavaScript' src='js/bootstrap-5.1.3-dist/bootstrap.js'></script>
 </div>
 </body>
 </html>
