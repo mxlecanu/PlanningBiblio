@@ -31,6 +31,7 @@ include "fonctions.php";
 
 use App\Model\AbsenceReason;
 use App\Model\SelectFloor;
+use App\Model\PlanningPositionHistory;
 use App\PlanningBiblio\PresentSet;
 use App\PlanningBiblio\Framework;
 
@@ -210,6 +211,22 @@ if ($db->result) {
 }
 
 //	-----------------------		FIN Récupération des postes	-----------------------------//
+$undoables = $entityManager
+     ->getRepository(PlanningPositionHistory::class)
+     ->undoable($date, $site);
+$redoables = $entityManager
+     ->getRepository(PlanningPositionHistory::class)
+     ->redoable($date, $site);
+
+$undoable = 1;
+if (empty($undoables)) {
+    $undoable = 0;
+}
+
+$redoable = 1;
+if (empty($redoables)) {
+    $redoable = 0;
+}
 
 
 // Show planning's menu
@@ -227,6 +244,8 @@ echo $twig->render('planning/poste/menu.html.twig',
         'heure_validation2' => $heure_validation2,
         'CSRFSession' => $CSRFSession,
         'week_view' => false,
+        'undoable' => $undoable,
+        'redoable' => $redoable
     )
 );
 
