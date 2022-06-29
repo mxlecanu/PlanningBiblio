@@ -18,6 +18,8 @@ Cette page est appelée par la fonction JavaScript "popup" qui affiche cette pag
 l'icône "Suppression" de la page planning/poste/index.php
 */
 
+use App\PlanningBiblio\Helper\PlanningPositionHistoryHelper;
+
 require_once "class.planning.php";
 
 // Initialisation des variables
@@ -66,6 +68,9 @@ if (!$semaineJour) {		// Etape 1 : Suppression du jour ou de la semaine ?
 } else {
     // Suppression de la semaine
     if ($semaineJour=="semaine") {
+        $history = new PlanningPositionHistoryHelper();
+        $history->delete_plannings($debut, $fin, $site);
+
         // Table pl_poste (affectation des agents)
         $db=new db();
         $db->CSRFToken = $CSRFToken;
@@ -78,6 +83,9 @@ if (!$semaineJour) {		// Etape 1 : Suppression du jour ou de la semaine ?
     }
     // Suppression du jour
     else {
+        $history = new PlanningPositionHistoryHelper();
+        $history->delete_plannings($date, $date, $site);
+
         // Table pl_poste (affectation des agents)
         $db=new db();
         $db->CSRFToken = $CSRFToken;
