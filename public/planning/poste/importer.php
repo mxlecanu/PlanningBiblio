@@ -14,6 +14,8 @@ Affiche les modèles disponibles, copie le tableau du modèle choisi et ses donn
 Cette page est appelée par la fonction JavaScript Popup qui l'affiche dans un cadre flottant
 */
 
+use App\PlanningBiblio\Helper\PlanningPositionHistoryHelper;
+
 require_once "class.planning.php";
 
 use App\Model\Agent;
@@ -161,6 +163,9 @@ if (!$model_id) {		// Etape 1 : Choix du modèle à importer
         $sql=null;
         $values=array();
         $absents=array();
+
+        $history = new PlanningPositionHistoryHelper();
+        $history->delete_plannings($elem, $elem, $site, 'import-model');
 
         $db = new db();
         $db->CSRFToken = $CSRFToken;
